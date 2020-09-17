@@ -1,7 +1,6 @@
 # Cat
 
-WARNING: FOR THE CURRENT VERSION OF THE WEBSITE, YOU NEED TO WAIT 15 SECONDS BEFORE LOADING FILE.<br />
-
+YOU NEED TO WAIT AROUND 15 SECONDS BEFORE LOADING FILE.<br />
 
 
 Is that a cat? Wonder no more, on Cat™ we let you know.<br />
