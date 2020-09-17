@@ -3,12 +3,18 @@
 
 <head>
     <title>Classifier</title>
+    <link rel="stylesheet" href="cat.css">
 
 <body>
-    <input type="file">
-    <img id="img">
-    <canvas id="canvas" width="224" height="224"></canvas>
+    <section id="loading">
+        <p style="margin-top: 35%;">Loading. Usually takes 10 to 15 seconds.</p>
+        <p>Please do not refresh the page often</p>
+    </section>
+
     <p id="predict">Prediction</p>
+    <input type="file">
+    <canvas id="canvas" width="224" height="224" style="border:1px solid #000000;"></canvas>
+    <img id="img">
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
@@ -19,6 +25,8 @@
                 var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
                 const MODEL_PATH = cors_api_url + 'https://github.com/Pofv/fileHost/blob/master/jsmodel1/model.json?raw=true';
                 model = await tf.loadLayersModel(MODEL_PATH);
+                var loading = document.getElementById("loading");
+                loading.style.visibility = "hidden";
                 console.log('model loaded from storage');
             } catch (error) {
                 console.log(error);
@@ -29,35 +37,37 @@
 
         var img = document.getElementById("img");
         var c = document.getElementById("canvas");
-        c.style.visibility='hidden';
-        var ctx = c.getContext('2d');
+        img.style.visibility = "hidden";
+        var ctx = c.getContext("2d");
         var image;
         $("input").change(function (e) {
             for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
 
                 var file = e.originalEvent.srcElement.files[i];
-                
+
                 var reader = new FileReader();
                 reader.onloadend = function () {
                     img.src = reader.result;
+                    img.onload = function () {
+                        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 224, 224);
+                        image = ctx.getImageData(0, 0, c.width, c.height);
+                        console.log("Width:" + c.width);
+                        console.log("Height:" + c.height);
+                        image = tf.browser.fromPixels(image);
+                        var tfImg = tf.image.resizeBilinear(image, [224, 224]);
+                        var resized = tf.cast(tfImg, 'float32');
+                        var t4d = tf.tensor4d(Array.from(resized.dataSync()), [1, 224, 224, 3])
+                        var p = model.predict(t4d).dataSync();
+                        console.log(p);
+                        if (p >= 0.5) {
+                            predict.innerHTML = "It's a dog!!";
+                        } else {
+                            predict.innerHTML = "It's a cat!!";
+                        }
+                    }
                 }
                 reader.readAsDataURL(file);
-                $("input").after(img);
-                ctx.drawImage(img, 0, 0);
-                image = ctx.getImageData(0, 0, c.width, c.height);
-                console.log("Width:"+c.width);
-                console.log("Height:"+c.height);
-                image = tf.browser.fromPixels(image);
-                var tfImg = tf.image.resizeBilinear(image, [224,224]);
-                var resized = tf.cast(tfImg, 'float32');
-                var t4d = tf.tensor4d(Array.from(resized.dataSync()),[1,224,224,3])
-                var p = model.predict(t4d).dataSync();
-                console.log(p);
-                if (p >= 0.5) {
-                    predict.innerHTML = "It's a dog!!";
-                } else {
-                    predict.innerHTML = "It's a cat!!";
-                }
+
             }
         });
     </script>
