@@ -1,8 +1,5 @@
 # Cat
 
-YOU NEED TO WAIT AROUND 15 SECONDS BEFORE LOADING FILE.<br />
-
-
 Is that a cat? Wonder no more, on Cat™ we let you know.<br />
 
 Goal:<br />
