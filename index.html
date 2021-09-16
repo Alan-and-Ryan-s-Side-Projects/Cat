@@ -3,20 +3,27 @@
 
 <head>
     <title>Classifier</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100" rel="stylesheet">
     <link rel="stylesheet" href="cat.css">
 
 <body>
     <section id="loading">
-        <p style="margin-top: 25%;">Loading. Usually takes 10 to 15 seconds.</p>
-        <p>Please do not refresh the page often</p>
+        <p style="margin-top: 20%;">Loading the machine learning model with a size of 46MB. </p>
+        <p>Usually takes 10 to 15 seconds. In the mean time, download some cat or dog images to see for yourself if the classifier works!</p>
+        <p>Please do not refresh the page as the model will reset</p>
     </section>
 
-    <a href="https://pofv.github.io/">Main page</a>
-    <p>Select an image file(.jpg, .jpeg, .png) and the model will predict if the image represents cat/cats or dog/dogs.</p>
-    <p id="predict">Prediction</p>
-    <input type="file">
-    <canvas id="canvas" width="224" height="224" style="border:1px solid #000000;"></canvas>
+    <div class = "topBar">
+        <a href="https://pofv.github.io/">Main Webpage</a>
+    </div>
+    <p style="margin-top: 2%;">Select an image file(.jpg, .jpeg, .png) and the model will predict if the image represents cat/cats or dog/dogs.</p>
+    <h1 id="predict" style="margin-top: 2%;">Prediction</h1>
+    <div style="text-align:center">    
+        <input type="file">
+    </div>
+    <canvas id="canvas" width="224" height="224" style="border:0px solid #000000;"></canvas>
     <img id="img">
+    
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <!-- import tfjs -->
@@ -61,9 +68,9 @@
                         var p = model.predict(t4d).dataSync();
                         console.log(p);
                         if (p >= 0.5) {
-                            predict.innerHTML = "It's a dog!!";
+                            predict.innerHTML = "It's a dog/dogs!";
                         } else {
-                            predict.innerHTML = "It's a cat!!";
+                            predict.innerHTML = "It's a cat/cats!";
                         }
                     }
                 }

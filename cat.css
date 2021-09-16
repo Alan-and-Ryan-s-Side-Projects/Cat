@@ -1,4 +1,3 @@
-url(https://fonts.googleapis.com/css?family=Montserrat);
 
 :root { /* adjusts everything */
   box-sizing: border-box;
@@ -18,13 +17,43 @@ body {
     background-attachment: fixed;
 }
 
+.topBar {
+    overflow: hidden;
+    background-color: rgb(59, 59, 59);;
+}
+.topBar a {
+    float: left;
+    font-size: 120%;
+    text-align: center;
+    padding: 25px 30px;
+    text-decoration: none;
+    color: rgb(248, 248, 248);
+}
+.topBar a:hover {
+    background-color: rgb(250, 164, 154);
+}
+
 input {
     margin: 2% 2%;
+}
+
+#canvas {
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
 }
 
 p {
     font-family: inherit;
     font-size: 120%;
+    text-align: center;
+}
+
+h1 {
+    font-family: inherit;
     text-align: center;
 }
 
