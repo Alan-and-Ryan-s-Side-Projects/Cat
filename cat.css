@@ -34,16 +34,17 @@ body {
 }
 
 input {
-    margin: 2% 2%;
+    margin: 0 0 0 43%;
 }
 
 #canvas {
-    position: absolute;
     top:0;
     bottom: 0;
-    left: 0;
-    right: 0;
-    margin:auto;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 p {
@@ -69,6 +70,11 @@ h1 {
 #loading p {
     z-index: 1001;
     color: ivory;
+}
+
+#input{
+    text-align: center;
+    margin: 0 auto;
 }
 
 
